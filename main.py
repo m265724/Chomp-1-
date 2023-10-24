@@ -1,6 +1,6 @@
 import pygame
 import sys
-from chomp_utils import make_background
+from chomp_utils import make_background, make_splash_screen
 # import chomp_utils
 
 # Initialize Pygame
@@ -24,6 +24,13 @@ pygame.display.set_caption('Making a customized background')
 # Make static background.
 background = scr.copy()
 make_background(background)
+
+# Create splash screen
+make_splash_screen(background, scr)
+
+
+print('Running Game ----')
+
 
 running = True
 while running:

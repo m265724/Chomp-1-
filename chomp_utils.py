@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 def make_background(surface):
     # Load the images.
@@ -30,3 +31,13 @@ def make_background(surface):
         x = random.randint(0, surface.get_width() - seagrass.get_width())
         surface.blit(seagrass, (x, surface.get_height() - sand.get_height() - sand_top.get_height()
                                 - seagrass.get_height() + 5))
+
+def make_splash_screen(background,scr):
+    custom_font = pygame.font.Font('assests/fonts/Black_Crayon.ttf', 128)
+    text = custom_font.render('Chomp',False,(255,69,0))
+    scr.blit(background, (0,0))
+    scr.blit(text, (scr.get_width() / 2 - text.get_width() / 2, scr.get_height() / 2 - text.get_height() / 2 - 50))
+    pygame.display.flip()
+
+    print('Splash Screen!')
+    time.sleep(5)
