@@ -27,7 +27,7 @@ def make_background(surface):
         surface.blit(sand_top, (x, surface.get_height() - sand.get_height() - sand_top.get_height()))
 
     # Draw seagrass.
-    for _ in range(0, 5):
+    for _ in range(0, 9):
         x = random.randint(0, surface.get_width() - seagrass.get_width())
         surface.blit(seagrass, (x, surface.get_height() - sand.get_height() - sand_top.get_height()
                                 - seagrass.get_height() + 5))
