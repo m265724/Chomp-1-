@@ -1,47 +1,6 @@
 import pygame
 import sys
-from work_chomp_utils import make_background, make_splash_screen
-import random
-
-class fish:
-    def __init__ (self, screen, color):
-        # Create a single fish
-        fish_name = f'assests/sprites/{color}_fish.png'
-        self.fish_img = pygame.image.load(fish_name).convert()
-        self.fish_img.set_colorkey((0,0,0)) # makes area around fish transparent
-        self.fish_x = random.randint(0,screen.get_width() - self.fish_img.get_width())
-        self.fish_x_dir = 1
-        self.fish_x_speed = 0.2
-        self.fish_y = random.randint(0,screen.get_width() - 4*self.fish_img.get_height())
-        self.fish_y_dir = 1
-        self.fish_y_speed = 0.2
-
-    def update_position(self, screen):
-        # Load images
-        sand = pygame.image.load("assets/sprites/sand.png").convert()
-        sand_top = pygame.image.load("assets/sprites/sand_top.png").convert()
-
-        # Update fish's positions
-        self.fish_x += self.fish_x_speed*self.fish_x_dir
-        self.fish_y += self.fish_y_speed*self.fish_y_dir
-
-        # Move fish on screen
-        if self.fish_x >= screen.get_width() - self.fish_img.get_width():
-            self.fish_x_dir = -1
-            self.fish_img = pygame.transform.flip(self.fish_img, True, False)
-
-        if self.fish_x < 0:
-            self.fish_x_dir = 1
-            self.fish_img = pygame.transform.flip(self.fish_img, True, False)
-
-        if self.fish_y < 0:
-            self.fish_y_dir = 1
-
-        if self.fish_y >= screen.get_height() - self.fish_img.get_height() - sand.get_height() - sand_top.get_height():
-            self.fish_y_dir = -1
-
-        # Draw fish
-        screen.blit(self.fish_img, (self.fish_x,self.fish_y))
+from work_chomp_utils import make_background, make_splash_screen, fish
 
 # Initialize Pygame
 pygame.init()
@@ -66,7 +25,7 @@ background = scr.copy()
 make_background(background)
 
 # Create beginning screen
-# make_splash_screen(background, scr)
+make_splash_screen(background, scr)
 
 # Create fish
 charles = fish(scr, 'green')
