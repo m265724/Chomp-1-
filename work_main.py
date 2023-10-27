@@ -72,6 +72,8 @@ make_background(background)
 charles = fish(scr, 'green')
 ted = fish(scr, 'orange')
 ted.fish_x_speed = 0.2
+marg = fish(scr, 'puffer')
+marg.fish_x_speed = 0.3
 
 # Run the game
 running = True
@@ -88,6 +90,7 @@ while running:
     # Update fish position
     charles.update_position(scr)
     ted.update_position(scr)
+    marg.update_position(scr)
 
     # Update the display
     pygame.display.flip()
