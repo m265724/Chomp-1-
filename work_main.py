@@ -11,13 +11,17 @@ class fish:
         self.fish_img.set_colorkey((0,0,0)) # makes area around fish transparent
         self.fish_x = random.randint(0,screen.get_width() - self.fish_img.get_width())
         self.fish_x_dir = 1
-        self.fish_x_speed = 0.1
+        self.fish_x_speed = 0.2
         self.fish_y = random.randint(0,screen.get_width() - 4*self.fish_img.get_height())
         self.fish_y_dir = 1
-        self.fish_y_speed = 0
+        self.fish_y_speed = 0.2
 
     def update_position(self, screen):
-        #Update fish's positions
+        # Load images
+        sand = pygame.image.load("assets/sprites/sand.png").convert()
+        sand_top = pygame.image.load("assets/sprites/sand_top.png").convert()
+
+        # Update fish's positions
         self.fish_x += self.fish_x_speed*self.fish_x_dir
         self.fish_y += self.fish_y_speed*self.fish_y_dir
 
@@ -29,6 +33,12 @@ class fish:
         if self.fish_x < 0:
             self.fish_x_dir = 1
             self.fish_img = pygame.transform.flip(self.fish_img, True, False)
+
+        if self.fish_y < 0:
+            self.fish_y_dir = 1
+
+        if self.fish_y >= screen.get_height() - self.fish_img.get_height() - sand.get_height() - sand_top.get_height():
+            self.fish_y_dir = -1
 
         # Draw fish
         screen.blit(self.fish_img, (self.fish_x,self.fish_y))
