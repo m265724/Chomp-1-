@@ -50,10 +50,10 @@ class fish:
         self.fish_img.set_colorkey((0,0,0)) # makes area around fish transparent
         self.fish_x = random.randint(0,screen.get_width() - self.fish_img.get_width())
         self.fish_x_dir = 1
-        self.fish_x_speed = 0.2
+        self.fish_x_speed = screen.get_width()/(5*60)
         self.fish_y = random.randint(0,screen.get_width() - 4*self.fish_img.get_height())
         self.fish_y_dir = 1
-        self.fish_y_speed = 0.2
+        self.fish_y_speed = screen.get_height()/(5*60)
 
     def update_position(self, screen):
         # Load images
@@ -81,3 +81,14 @@ class fish:
 
         # Draw fish
         screen.blit(self.fish_img, (self.fish_x,self.fish_y))
+
+class C_Fish(fish):
+    def __init__(self, screen, color):
+
+        # Inherits everything from fish class
+        super().__init__(screen, color)
+
+    def update_position(self, screen):
+
+        # Draw fish
+        screen.blit(self.fish_img, (self.fish_x, self.fish_y))
