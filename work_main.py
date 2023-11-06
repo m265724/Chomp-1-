@@ -1,6 +1,7 @@
 import pygame
 import sys
-from work_chomp_utils import make_background, make_splash_screen, fish, C_Fish
+from work_chomp_utils import make_background, make_splash_screen, Fish, C_Fish
+import time
 
 # Initialize Pygame
 pygame.init()
@@ -28,22 +29,24 @@ background = scr.copy()
 make_background(background)
 
 # Create beginning screen
-make_splash_screen(background, scr)
+#make_splash_screen(background, scr)
 
 # Create fish
-charles = fish(scr, 'green')
-ted = fish(scr, 'orange')
+charles = Fish(scr, 'green')
+ted = Fish(scr, 'orange')
 mary = C_Fish(scr, 'puffer')
 
 # Run the game
 running = True
 while running:
 
-    # Get events happening in window.
-    for event in pygame.event.get():
+    t1 = time.time()
 
-        # Does something when a key is pressed
-        # *insert code*
+    # Stores events in a variable
+    events = pygame.event.get()
+
+    # Get events happening in window.
+    for event in events:
 
         # User presses quit button
         if event.type == pygame.QUIT:
@@ -55,7 +58,7 @@ while running:
     # Update fish position
     charles.update_position(scr)
     ted.update_position(scr)
-    mary.update_position(scr)
+    mary.update_position(scr, events)
 
     # Update the display
     pygame.display.flip()

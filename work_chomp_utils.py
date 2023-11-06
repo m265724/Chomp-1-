@@ -2,6 +2,7 @@ import pygame
 import random
 import time
 
+
 def make_background(surface):
     # Load the images.
     water = pygame.image.load("assets/sprites/water.png").convert()
@@ -32,26 +33,31 @@ def make_background(surface):
         surface.blit(seagrass, (x, surface.get_height() - sand.get_height() - sand_top.get_height()
                                 - seagrass.get_height() + 5))
 
-def make_splash_screen(background,scr):
-    custom_font = pygame.font.Font('assests/fonts/Black_Crayon.ttf', 128)
-    text = custom_font.render('Chomp',False,(255,69,0))
-    scr.blit(background, (0,0))
+
+def make_splash_screen(background, scr):
+    custom_font = pygame.font.Font('assets/fonts/Black_Crayon.ttf', 128)
+    text = custom_font.render('Chomp', False, (255, 69, 0))
+    scr.blit(background, (0, 0))
     scr.blit(text, (scr.get_width() / 2 - text.get_width() / 2, scr.get_height() / 2 - text.get_height() / 2 - 50))
     pygame.display.flip()
 
     print('Splash Screen!')
     time.sleep(5)
 
-class fish:
-    def __init__ (self, screen, color):
+
+class Fish:
+    def __init__(self, screen, color):
         # Create a single fish
-        fish_name = f'assests/sprites/{color}_fish.png'
+        fish_name = f'assets/sprites/{color}_fish.png'
         self.fish_img = pygame.image.load(fish_name).convert()
-        self.fish_img.set_colorkey((0,0,0)) # makes area around fish transparent
-        self.fish_x = random.randint(0,screen.get_width() - self.fish_img.get_width())
+
+        # makes area around fish transparent
+        self.fish_img.set_colorkey((0, 0, 0))
+
+        self.fish_x = random.randint(0, screen.get_width() - self.fish_img.get_width())
         self.fish_x_dir = 1
         self.fish_x_speed = screen.get_width()/(5*60)
-        self.fish_y = random.randint(0,screen.get_width() - 4*self.fish_img.get_height())
+        self.fish_y = random.randint(0, screen.get_width() - 4*self.fish_img.get_height())
         self.fish_y_dir = 1
         self.fish_y_speed = screen.get_height()/(5*60)
 
@@ -80,15 +86,53 @@ class fish:
             self.fish_y_dir = -1
 
         # Draw fish
-        screen.blit(self.fish_img, (self.fish_x,self.fish_y))
+        screen.blit(self.fish_img, (self.fish_x, self.fish_y))
 
-class C_Fish(fish):
+
+class C_Fish(Fish):
     def __init__(self, screen, color):
 
         # Inherits everything from fish class
         super().__init__(screen, color)
 
-    def update_position(self, screen):
+        # Keys
+        self.key_up = "not pressed"
+        self.key_down = "not pressed"
+
+    def update_position(self, screen, events):
+
+        # Update position w/ keystrokes
+        for event in events:
+
+            # Does something when a key is pressed
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    self.key_up = "pressed"
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    self.key_up = "not pressed"
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    self.key_down = "pressed"
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_DOWN:
+                    self.key_down = "not pressed"
+
+        # Update status based on keys
+        if self.key_up == "pressed":
+            self.fish_y -= self.fish_y_speed
+
+        if self.key_down == "pressed":
+            self.fish_y += self.fish_y_speed
+
+        # Create y bound
+        # insert code
+
+        # Create x bound
+        # insert code
 
         # Draw fish
         screen.blit(self.fish_img, (self.fish_x, self.fish_y))
