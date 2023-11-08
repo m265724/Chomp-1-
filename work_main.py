@@ -60,6 +60,9 @@ while running:
     ted.update_position(scr)
     mary.update_position(scr, events)
 
+    # Check for collision
+    charles.collision_check([ted, mary])
+
     # Update the display
     pygame.display.flip()
 
