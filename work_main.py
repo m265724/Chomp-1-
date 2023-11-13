@@ -32,8 +32,12 @@ make_background(background)
 #make_splash_screen(background, scr)
 
 # Create fish
-charles = Fish(scr, 'green')
-ted = Fish(scr, 'orange')
+num_fish = 2
+fish_list = []
+for i in range(0, int(num_fish/2)):
+    fish_list.append(Fish(scr, "green"))
+for i in range(0, int(num_fish/2)):
+    fish_list.append(Fish(scr, "orange"))
 mary = C_Fish(scr, 'puffer')
 
 # Run the game
@@ -56,12 +60,12 @@ while running:
     scr.blit(background, (0, 0))
 
     # Update fish position
-    charles.update_position(scr)
-    ted.update_position(scr)
+    for fish in fish_list:
+        fish.update_position(scr)
     mary.update_position(scr, events)
 
     # Check for collision
-    charles.collision_check([ted, mary])
+    mary.collision_check(fish_list)
 
     # Update the display
     pygame.display.flip()

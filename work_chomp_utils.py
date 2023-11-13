@@ -62,6 +62,9 @@ class Fish:
         self.fish_y_dir = 1
         self.fish_y_speed = screen.get_height()/(5*60)
 
+        # Sounds
+        self.chomp = pygame.mixer.Sound("assets/sounds/chomp.wav")
+
     # Updates fish position
     def update_position(self, screen):
         # Load images
@@ -102,13 +105,14 @@ class Fish:
         my_bubble = pygame.Rect(self.fish_x, self.fish_y, int(self.fish_img.get_width())/1.2,
                                 int(self.fish_img.get_height())/1.2)
 
-        indices0 = my_bubble.collidelistall(list_of_other_fish)
+        indices_0 = my_bubble.collidelistall(list_of_other_fish)
 
-        print(indices0)
+        # Prints when collision occurs
+        print(indices_0)
 
-        # Slows time when collision occurs (could be used to end game if collision occurs?)
-        # if len(indices0) > 0:
-            # time.sleep(3)
+        # Plays sound when collision occurs
+        if len(indices_0) > 0:
+            pygame.mixer.Sound.play(self.chomp)
 
 
 class C_Fish(Fish):
@@ -168,11 +172,23 @@ class C_Fish(Fish):
         if self.key_down == "pressed":
             self.fish_y += self.fish_y_speed
 
+        # Turn fish around & swim left
         if self.key_left == "pressed":
             self.fish_x -= self.fish_x_speed
+            self.fish_img = pygame.transform.flip(self.fish_img, True, False)
 
         if self.key_right == "pressed":
             self.fish_x += self.fish_x_speed
+
+        '''
+                # Turn fish back facing forward
+                if self.key_left == "not pressed":
+                    self.fish_img = pygame.transform.flip(self.fish_img, True, False)
+                
+                # Variable for left & right facing fish for when moving C_Fish left & right    
+                left_fish = self.fish_img.flip()
+                right_fight = self.fish_img.load(fish_name).convert()
+        '''
 
         # Create y bound
         # insert code
