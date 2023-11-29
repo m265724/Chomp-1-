@@ -58,7 +58,7 @@ class Fish:
         self.fish_x = random.randint(0, screen.get_width() - self.fish_img.get_width())
         self.fish_x_dir = 1
         self.fish_x_speed = screen.get_width()/(5*60)
-        self.fish_y = random.randint(0, screen.get_width() - 4*self.fish_img.get_height())
+        self.fish_y = random.randint(0, screen.get_height() - 4*self.fish_img.get_height())
         self.fish_y_dir = 1
         self.fish_y_speed = screen.get_height()/(5*60)
 
